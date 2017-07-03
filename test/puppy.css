@@ -1,0 +1,69 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	position: relative;
+	color: #464637;
+	min-height: 100%;
+	font-size: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+.todo {
+    margin-top: 100px;
+    margin: auto;
+    max-width: 380px;
+}
+
+.cursor_drag {
+    cursor: move;
+    padding-right: 20px;
+}
+
+
+textarea {
+    resize: vertical;
+    border: none;
+    background-color: #EEE;
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+}
+
+.chunk {
+    display: flex;
+    align-items: center;
+}
+
+.block {
+	opacity: 1;
+}
+	.block__list {
+		padding: 20px 0;
+		background-color: #fff;
+	}
+
+	.block__list_words li {
+		background-color: #fff;
+		padding: 10px;
+	}
+		.block__list_words .sortable-ghost {
+			opacity: 0.4;
+			background-color: #F4E2C9;
+		}
