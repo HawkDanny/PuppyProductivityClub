@@ -120,7 +120,7 @@ function updateChunks() {
     chunks = [];
 
     //Iterate through the current html, and add the new chunks to the array
-    for (var i = 0; i < newChunks.length; i++) {
+    for (var i = 0; i < newChunks.length - 1; i++) {
         chunks.push(newChunks[i]);
     }
 }
@@ -186,6 +186,7 @@ function removeChunk() {
 //there is no focused value, and document.activeElement
 //will return undefined
 function addChunk(FirstTimeOverride) {
+    console.log("addChunk called");
 
     //Update chunks to account for changes in order
     //TODO: There is a more elegant way to handle this
