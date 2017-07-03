@@ -127,6 +127,7 @@ function updateChunks() {
 
 //Loops through chunks, and appends all the elements to .todo
 function constructTodoFromChunks() {
+
     var todo = document.querySelector(".todo");
 
     //Clear the html first
@@ -135,6 +136,11 @@ function constructTodoFromChunks() {
     for (var i = 0; i < chunks.length; i++) {
         todo.appendChild(chunks[i]);
     }
+
+    //Create the tutorial text <p>
+    var tut = document.createElement("p");
+    tut.setAttribute("class", "tutorial");
+    todo.appendChild(tut);
 }
 
 //TODO: update description

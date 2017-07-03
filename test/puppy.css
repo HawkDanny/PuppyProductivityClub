@@ -2,6 +2,7 @@ html, body {
 	margin: 0;
 	padding: 0;
 	position: relative;
+	background-color: #3699D1;
 	color: #464637;
 	min-height: 100%;
 	font-size: 20px;
@@ -17,6 +18,19 @@ ul {
     height: 100vh;
     display: flex;
     align-items: center;
+	transition: opacity 1s;
+}
+
+.tutorial {
+	margin-top: -5px;
+	padding-left: 47px;
+	font-size: 15px;
+	color: #8AB7D1;
+	opacity: 0;
+}
+
+span {
+	color: #8AB7D1;
 }
 
 
@@ -37,7 +51,7 @@ ul {
 textarea {
     resize: vertical;
     border: none;
-    background-color: #EEE;
+    background-color: #8AB7D1;
     font-size: 16px;
     font-family: 'Open Sans', sans-serif;
 }
@@ -56,14 +70,14 @@ input:focus, textarea:focus {
 }
 	.block__list {
 		padding: 20px 0;
-		background-color: #fff;
+		background-color: #3699D1;
 	}
 
 	.block__list_words li {
-		background-color: #fff;
+		background-color: #3699D1;
 		padding: 10px;
 	}
 		.block__list_words .sortable-ghost {
 			opacity: 0.4;
-			background-color: #F4E2C9;
+			background-color: #3699D1;
 		}
