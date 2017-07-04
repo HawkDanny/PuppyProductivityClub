@@ -361,6 +361,8 @@ function updateArrowVisibility() {
 //Move the current item to the spot that corresponds to the state
 function updateItemPosition() {
 
+    updateItemContent();
+
     var item = document.querySelector(".item");
 
     switch (state) {
@@ -373,6 +375,11 @@ function updateItemPosition() {
             item.style.opacity = 1;
         break;
     }
+}
+
+//Sets the value of item to reflect the current chunks
+function updateItemContent() {
+    
 }
 
 //Transitions back to the entry state

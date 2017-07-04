@@ -20,12 +20,14 @@ ul {
     display: flex;
     align-items: center;
 	transition: margin 0.4s ease-in-out;
+	z-index: -10;
 }
 
 .fixedContainer {
 	background-color: #3699D1;
 	position: fixed;
 	height: 100vh;
+	pointer-events: none;
 }
 
 .tutorial {
@@ -48,6 +50,7 @@ i {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+	pointer-events: none;
 }
 
 .expandArrow {
@@ -67,7 +70,6 @@ i {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	pointer-events: none;
 }
 
 .item {
@@ -78,16 +80,6 @@ i {
 	transition: margin 0.4s ease-in-out, opacity 0.4s ease-in-out;
 }
 
-.item p {
-	z-index: 30;
-	transition: text-shadow 0.3s;
-}
-
-.item p:hover {
-	color: #8735B2;
-	text-shadow: 2px 2px #EEE;
-}
-
 
 
 
@@ -95,7 +87,7 @@ i {
     margin-top: 100px;
     margin: auto;
     max-width: 380px;
-	z-index: 20;
+	z-index: 2;
 }
 
 .cursor_drag {
@@ -137,3 +129,57 @@ input:focus, textarea:focus {
 			opacity: 0.4;
 			background-color: #3699D1;
 		}
+
+
+
+
+
+
+
+
+
+
+/*Transition effect courtesy of hover.css*/
+/* Bounce To Bottom */
+.hvr-bounce-to-bottom {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  position: relative;
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+.hvr-bounce-to-bottom:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #8AB7D1;
+  -webkit-transform: scaleY(0);
+  transform: scaleY(0);
+  -webkit-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-bounce-to-bottom:hover, .hvr-bounce-to-bottom:focus, .hvr-bounce-to-bottom:active {
+  color: #3699D1;
+  cursor: 
+}
+.hvr-bounce-to-bottom:hover:before, .hvr-bounce-to-bottom:focus:before, .hvr-bounce-to-bottom:active:before {
+  -webkit-transform: scaleY(1);
+  transform: scaleY(1);
+  -webkit-transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
+}
