@@ -21,6 +21,15 @@
     - Handling when the list was reordered.
  */
 
+var APPSTATE = {
+    ENTRY: 0,
+    WORKING: 1
+};
+Object.freeze(state);
+
+//The current state of the application
+var state;
+
 //Used for Keypress.js
 var listener;
 
@@ -42,6 +51,8 @@ var tutorialCounter = -1;
 //Fired when the window has loaded.
 //Initializes default values and triggers set up functions
 function init() {
+    state = APPSTATE.ENTRY;
+
     //Sortable
     var el = document.querySelector("ul");
     var sortable = new Sortable(el, {
@@ -94,6 +105,9 @@ function init() {
             "prevent_repeat"    : true,
         }
     ]);
+
+    //Add a click listener to the arrow
+    document.querySelector(".expandArrow").addEventListener("click", toEntry);
 }
 
 //Moves the focus upward one chunk
@@ -274,9 +288,9 @@ function freshChunk() {
     chunk.appendChild(div);
 
     //span
-    var span = document.createElement("span");
-    span.setAttribute("class", "fa fa-bars cursor_drag handle");
-    div.appendChild(span);
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fa fa-bars cursor_drag handle");
+    div.appendChild(icon);
 
     //textarea
     var textarea = document.createElement("textarea");
@@ -296,16 +310,58 @@ function freshChunk() {
 
 //Shows the todo-list and records the time
 function startWorking() {
-    moveTodoList();
+    state = APPSTATE.WORKING;
+
+    //Get the todolist off screen
+    updateTodoListPosition();
+
+    //Change the arrows visibility
+    setTimeout(updateArrowVisibility, 400);
 }
 
-//Move the todo list off the screen
-function moveTodoList() {
+//Move the todo list to the spot that corresponds to the state
+function updateTodoListPosition() {
 
-    var width = window.innerWidth;
-    var todoWidth = document.querySelector(".todo").offsetWidth;
+    switch (state) {
+        case APPSTATE.ENTRY:
+            document.querySelector(".container").style.marginRight = "0px";
+        break;
+        case APPSTATE.WORKING:
+            var width = window.innerWidth;
+            var todoWidth = document.querySelector(".todo").offsetWidth;
+            var offset = width + todoWidth;
 
-    document.querySelector(".container").style.marginRight = "-" + (width + todoWidth - 75) + "px";
+            document.querySelector(".container").style.marginRight = "-" + offset + "px";
+        break;
+    }
+    
 }
+
+//Changes the arrows visibility based on th current state
+function updateArrowVisibility() {
+    switch (state) {
+        case APPSTATE.ENTRY:
+            document.querySelector(".expandArrow").style.opacity = 0;
+        break;
+        case APPSTATE.WORKING:
+            document.querySelector(".expandArrow").style.opacity = 1;
+        break;
+    }
+}
+
+//Transitions back to the entry state
+function toEntry() {
+    state = APPSTATE.ENTRY;
+
+    //Get the todolist on screen
+    setTimeout(updateTodoListPosition, 400);
+
+    //Change the arrows visibility
+    updateArrowVisibility();
+}
+
+
+
+
 
 window.onload = init;

@@ -2,13 +2,13 @@ html, body {
 	margin: 0;
 	padding: 0;
 	position: relative;
-	background-color: #3699D1;
 	color: #464637;
 	min-height: 100%;
 	font-size: 20px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	overflow-x: hidden;
+
 }
 
 ul {
@@ -19,7 +19,13 @@ ul {
     height: 100vh;
     display: flex;
     align-items: center;
-	transition: margin 0.6s ease-in-out;
+	transition: margin 0.4s ease-in-out;
+}
+
+.fixedContainer {
+	background-color: #3699D1;
+	position: fixed;
+	height: 100vh;
 }
 
 .tutorial {
@@ -32,8 +38,26 @@ ul {
 	opacity: 0;
 }
 
-span {
+i {
 	color: #8AB7D1;
+}
+
+.arrowOffset {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+.expandArrow {
+	opacity: 0;
+	padding-right: 10px;
+	transition: color 0.2s, opacity 1s;
+}
+
+.expandArrow:hover {
+	color: #EEE;
 }
 
 
@@ -43,6 +67,7 @@ span {
     margin-top: 100px;
     margin: auto;
     max-width: 380px;
+	z-index: 20;
 }
 
 .cursor_drag {
