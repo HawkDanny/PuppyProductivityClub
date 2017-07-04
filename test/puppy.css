@@ -18,14 +18,15 @@ ul {
     height: 100vh;
     display: flex;
     align-items: center;
-	transition: opacity 1s;
 }
 
 .tutorial {
+	height: 0px;
 	margin-top: -5px;
 	padding-left: 47px;
 	font-size: 15px;
 	color: #8AB7D1;
+	transition: opacity 1s;
 	opacity: 0;
 }
 

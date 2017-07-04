@@ -34,6 +34,9 @@ var numChunks = 0;
 //The innerHTML of the todo list, used to check if the html has been updated
 var todoHTML;
 
+//Used to keep track of the state of the tutorial
+var tutorialCounter = -1;
+
 //Fired when the window has loaded.
 //Initializes default values and triggers set up functions
 function init() {
@@ -125,6 +128,27 @@ function updateChunks() {
     }
 }
 
+//Used to update the tutorial text based on context
+function updateTutorial() {
+
+    var tut = document.querySelector(".tutorial");
+
+    //Set the contents of tutorial if the user is still learning
+    if (tutorialCounter === 0) {
+        tut.innerHTML = "Press tab to add a new item";
+        tut.style.opacity = 1;
+    } else if (tutorialCounter === 1) {
+        tut.innerHTML = "Press shift + delete to remove an item";
+        tut.style.opacity = 1;
+    } else if (tutorialCounter === 2) {
+        tut.innerHTML = "Press shift + enter to start working";
+        tut.style.opacity = 1;
+    } else {
+        tut.innerHTML = "";
+        tut.style.opacity = 0;
+    }
+}
+
 //Loops through chunks, and appends all the elements to .todo
 function constructTodoFromChunks() {
 
@@ -149,6 +173,9 @@ function removeChunk() {
     //Update chunks to account for changes in order
     //TODO: There is a more elegant way to handle this
     updateChunks();
+
+    //Progress the tutorial state
+    ++tutorialCounter;
 
     //Cannot delete the last chunk
     if (chunks.length === 1)
@@ -186,13 +213,13 @@ function removeChunk() {
 //there is no focused value, and document.activeElement
 //will return undefined
 function addChunk(FirstTimeOverride) {
-    console.log("addChunk called");
 
     //Update chunks to account for changes in order
     //TODO: There is a more elegant way to handle this
     updateChunks();
 
-    /*PROCESSES BEFORE HTML CHANGES */
+    //Progress the tutorial state
+    ++tutorialCounter;
 
     //The currently focused element
     var currentChunk = document.activeElement.parentElement.parentElement;
@@ -201,13 +228,10 @@ function addChunk(FirstTimeOverride) {
     //new chunk. If it is on any other chunk,
     //move the focus to the next chunk
     if (currentChunk === chunks[chunks.length - 1] || FirstTimeOverride) {
-        /*HTML CHANGES */
 
         //Insert a chunk at the end of the array
         insertChunk(chunks.length);
         constructTodoFromChunks();
-
-        /*PROCESSES AFTER THE HTML CHANGES */
 
         //For the newest chunk: run autosize and set the focus
         var areas = document.querySelectorAll(".todo textarea");
@@ -251,6 +275,12 @@ function freshChunk() {
     textarea.setAttribute("cols", "35");
     textarea.setAttribute("rows", "1");
     textarea.setAttribute("class", "c" + ++numChunks);
+
+    //Add an onchange event to the first chunk's textarea,
+    if (chunks.length === 0 || chunks.length === 1 || chunks.length === 2) {
+        textarea.addEventListener("input", updateTutorial);
+    }
+
     div.appendChild(textarea);
 
     return chunk;
