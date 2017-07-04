@@ -23,7 +23,8 @@
 
 var APPSTATE = {
     ENTRY: 0,
-    WORKING: 1
+    WORKING: 1,
+    BREAK: 2
 };
 Object.freeze(state);
 
@@ -134,6 +135,11 @@ function moveFocusUp(index) {
         }
     }
     //Only reached if the chunk is the top chunk (index 0)
+    chunks[chunks.length - 1].childNodes[0].childNodes[1].focus();
+}
+
+//Move hte focus to the last chunk
+function focusOnLast() {
     chunks[chunks.length - 1].childNodes[0].childNodes[1].focus();
 }
 
@@ -315,6 +321,9 @@ function startWorking() {
     //Get the todolist off screen
     updateTodoListPosition();
 
+    //Get the item on screen
+    updateItemPosition();
+
     //Change the arrows visibility
     setTimeout(updateArrowVisibility, 400);
 }
@@ -349,12 +358,35 @@ function updateArrowVisibility() {
     }
 }
 
+//Move the current item to the spot that corresponds to the state
+function updateItemPosition() {
+
+    var item = document.querySelector(".item");
+
+    switch (state) {
+        case APPSTATE.ENTRY:
+            item.style.marginLeft = "-150vw";
+            item.style.opacity = 0; //opacity is also set, so that when you resize the window, the item won't be seen briefly
+        break;
+        case APPSTATE.WORKING:
+            item.style.marginLeft = "0px";
+            item.style.opacity = 1;
+        break;
+    }
+}
+
 //Transitions back to the entry state
 function toEntry() {
     state = APPSTATE.ENTRY;
 
     //Get the todolist on screen
     setTimeout(updateTodoListPosition, 400);
+
+    //Get the item off screen
+    setTimeout(updateItemPosition, 400);
+
+    //This cannot be good programming
+    setTimeout(focusOnLast, 1000);
 
     //Change the arrows visibility
     updateArrowVisibility();

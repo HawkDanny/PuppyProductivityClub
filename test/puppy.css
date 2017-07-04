@@ -60,6 +60,34 @@ i {
 	color: #EEE;
 }
 
+.itemContainer {
+	position: fixed;
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+}
+
+.item {
+	font-size: 30px;
+	max-width: 50vw;
+	margin-left: -150vw;
+	opacity: 0;
+	transition: margin 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+
+.item p {
+	z-index: 30;
+	transition: text-shadow 0.3s;
+}
+
+.item p:hover {
+	color: #8735B2;
+	text-shadow: 2px 2px #EEE;
+}
+
 
 
 
