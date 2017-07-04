@@ -37,6 +37,8 @@ var todoHTML;
 //Used to keep track of the state of the tutorial
 var tutorialCounter = -1;
 
+
+
 //Fired when the window has loaded.
 //Initializes default values and triggers set up functions
 function init() {
@@ -64,6 +66,12 @@ function init() {
 
     //Set up input initialization for Keypress
     listener.register_many([{
+            "keys"              : "shift enter",
+            "is_exclusive"      : true,
+            "on_keydown"        : startWorking,
+            "prevent_repeat"    : true,
+        },
+        {
             "keys"              : "shift backspace",
             "is_exclusive"      : true,
             "on_keydown"        : removeChunk,
@@ -286,5 +294,18 @@ function freshChunk() {
     return chunk;
 }
 
+//Shows the todo-list and records the time
+function startWorking() {
+    moveTodoList();
+}
+
+//Move the todo list off the screen
+function moveTodoList() {
+
+    var width = window.innerWidth;
+    var todoWidth = document.querySelector(".todo").offsetWidth;
+
+    document.querySelector(".container").style.marginRight = "-" + (width + todoWidth - 75) + "px";
+}
 
 window.onload = init;
