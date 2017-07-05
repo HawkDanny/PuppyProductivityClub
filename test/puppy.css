@@ -57,6 +57,7 @@ i {
 	opacity: 0;
 	padding-right: 10px;
 	transition: color 0.2s, opacity 1s;
+	pointer-events: auto;
 }
 
 .expandArrow:hover {
@@ -70,6 +71,7 @@ i {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	pointer-events: none;
 }
 
 .item {
@@ -78,6 +80,10 @@ i {
 	margin-left: -150vw;
 	opacity: 0;
 	transition: margin 0.4s ease-in-out, opacity 0.4s ease-in-out;
+	pointer-events: auto;
+}
+.item p {
+	padding: 0px 5px;
 }
 
 
@@ -175,7 +181,7 @@ input:focus, textarea:focus {
 }
 .hvr-bounce-to-bottom:hover, .hvr-bounce-to-bottom:focus, .hvr-bounce-to-bottom:active {
   color: #3699D1;
-  cursor: 
+  cursor: pointer;
 }
 .hvr-bounce-to-bottom:hover:before, .hvr-bounce-to-bottom:focus:before, .hvr-bounce-to-bottom:active:before {
   -webkit-transform: scaleY(1);

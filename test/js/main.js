@@ -109,6 +109,9 @@ function init() {
 
     //Add a click listener to the arrow
     document.querySelector(".expandArrow").addEventListener("click", toEntry);
+
+    //Add a click listener to the item
+    document.querySelector(".item p").addEventListener("click", completeTask);
 }
 
 //Moves the focus upward one chunk
@@ -379,7 +382,8 @@ function updateItemPosition() {
 
 //Sets the value of item to reflect the current chunks
 function updateItemContent() {
-    
+    var p = document.querySelector(".item p");
+    p.innerHTML = chunks[0].childNodes[0].childNodes[1].value;
 }
 
 //Transitions back to the entry state
@@ -397,6 +401,10 @@ function toEntry() {
 
     //Change the arrows visibility
     updateArrowVisibility();
+}
+
+function completeTask() {
+
 }
 
 
