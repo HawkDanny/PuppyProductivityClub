@@ -19,6 +19,7 @@
     to create a better method for constructing the html, after I started progamming the "remove" functionality
     - NodeList's don't have a remove feature. They're 'array-like'
     - Handling when the list was reordered.
+    - Implementing a state system halfway through development really leaves the entire project messy.
  */
 
 var APPSTATE = {
@@ -47,6 +48,20 @@ var todoHTML;
 //Used to keep track of the state of the tutorial
 var tutorialCounter = -1;
 
+//A bool that is used to track if the list has just been completed
+var listCompleted;
+
+//A date variable that keeps track of when the current session was started
+var sessionTime;
+
+//How long the work portion is
+var workLength;
+
+//The text being shown to the user while on break
+var timerText;
+
+//Variable to hold the interval data
+var interval;
 
 
 //Fired when the window has loaded.
@@ -66,6 +81,12 @@ function init() {
     
     //Initialize chunks
     chunks = [];
+
+    //List has not been completed
+    listCompleted = false;
+
+    //25 minutes
+    workLength = 1200000;
 
     //Start the page off with a chunk
     addChunk(true);
@@ -266,7 +287,13 @@ function addChunk(FirstTimeOverride) {
 
         //For the newest chunk: run autosize and set the focus
         var areas = document.querySelectorAll(".todo textarea");
-        areas[areas.length - 1].focus();
+
+        //Check to see if we're doing this again
+        if (!listCompleted) {
+            areas[areas.length - 1].focus();
+        }
+        listCompleted = false;
+
         autosize(areas[areas.length - 1]);
     }
     else {
@@ -321,6 +348,10 @@ function freshChunk() {
 function startWorking() {
     state = APPSTATE.WORKING;
 
+    //Set the session starting time on the first start of the todo list
+    if (sessionTime === undefined)
+        sessionTime = Date.now();
+
     //Get the todolist off screen
     updateTodoListPosition();
 
@@ -367,6 +398,7 @@ function updateItemPosition() {
     updateItemContent();
 
     var item = document.querySelector(".item");
+    var p = document.querySelector(".item p");
 
     switch (state) {
         case APPSTATE.ENTRY:
@@ -376,6 +408,8 @@ function updateItemPosition() {
         case APPSTATE.WORKING:
             item.style.marginLeft = "0px";
             item.style.opacity = 1;
+            p.removeAttribute("class");
+            p.setAttribute("class", "hvr-bounce-to-bottom");
         break;
     }
 }
@@ -383,12 +417,47 @@ function updateItemPosition() {
 //Sets the value of item to reflect the current chunks
 function updateItemContent() {
     var p = document.querySelector(".item p");
-    p.innerHTML = chunks[0].childNodes[0].childNodes[1].value;
+
+    //Check the time
+    var d = Date.now();
+
+    if (p.innerHTML === "Back at it?") {
+        sessionTime = d;
+    }
+
+    //If more than 15 minutes have passes
+    if (d - sessionTime > workLength) {
+        startBreak();
+        return;
+    }
+
+    //check to see if there is nothing in the array
+    if (chunks.length === 0) {
+        p.innerHTML = "All done!";
+        p.setAttribute("class", "cutItOut");
+        listCompleted = true;
+        return;
+    }
+
+    var chunkValue = chunks[0].childNodes[0].childNodes[1].value;
+    
+    if (chunkValue === "") {
+        if (listCompleted) return; //Prevents the "All done!" from turning into "[empty]" on animation
+        p.innerHTML = "[empty]";
+    } else {
+        p.innerHTML = chunkValue;
+    }
+
 }
 
 //Transitions back to the entry state
 function toEntry() {
     state = APPSTATE.ENTRY;
+
+    //Make sure we're not heading back to an empty chunk array
+    if (chunks.length === 0) {
+        addChunk(true);
+    }
 
     //Get the todolist on screen
     setTimeout(updateTodoListPosition, 400);
@@ -403,10 +472,57 @@ function toEntry() {
     updateArrowVisibility();
 }
 
+//Called when the current item has been completed
 function completeTask() {
 
+    //remove the current chunk
+    chunks.splice(0, 1);
+
+    //reconstruct the chunks
+    constructTodoFromChunks();
+
+    updateItemContent();
 }
 
+//Called to kick off the 5 minute break
+function startBreak() {
+    state = APPSTATE.BREAK;
+
+    createTimer();
+
+    //Call updateTimer every minute
+    interval = setInterval(updateTimer, 60000);
+}
+
+function createTimer() {
+    timerText = 5;
+
+    var p = document.querySelector(".item p");
+    p.setAttribute("class", "cutItOut");
+    p.style.fontSize = "150vh";
+    p.style.color = "#3392C7";
+
+    p.innerHTML = timerText;
+}
+
+function updateTimer() {
+
+    var p = document.querySelector(".item p");
+
+    if (timerText === 1) {
+        state = APPSTATE.WORKING;
+        clearInterval(interval);
+        p.style.color = "#464637";
+        p.style.fontSize = "30px";
+        p.innerHTML = "Back at it?";
+        p.removeAttribute("class");
+        p.setAttribute("class", "hvr-bounce-to-bottom");
+        return;
+    }
+
+    //Decrement the timer
+    p.innerHTML = --timerText;
+}
 
 
 

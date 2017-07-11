@@ -15,6 +15,10 @@ ul {
     list-style: none;
 }
 
+.cutItOut {
+	pointer-events: none;
+}
+
 .container {
     height: 100vh;
     display: flex;
