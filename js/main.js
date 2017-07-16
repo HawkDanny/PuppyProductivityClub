@@ -63,6 +63,9 @@ var timerText;
 //Variable to hold the interval data
 var interval;
 
+//Informatio state
+var showInformation;
+
 
 //Fired when the window has loaded.
 //Initializes default values and triggers set up functions
@@ -87,6 +90,9 @@ function init() {
 
     //25 minutes
     workLength = 1200000;
+
+    //Don't show information by default
+    showInformation = false;
 
     //Start the page off with a chunk
     addChunk(true);
@@ -133,6 +139,9 @@ function init() {
 
     //Add a click listener to the item
     document.querySelector(".item p").addEventListener("click", completeTask);
+
+    //Add a click listener to the information icon
+    document.querySelector(".infoMouseover").addEventListener("click", toggleInformation);
 }
 
 //Moves the focus upward one chunk
@@ -348,6 +357,8 @@ function freshChunk() {
 function startWorking() {
     state = APPSTATE.WORKING;
 
+    document.activeElement.blur();
+
     //Set the session starting time on the first start of the todo list
     if (sessionTime === undefined)
         sessionTime = Date.now();
@@ -522,6 +533,24 @@ function updateTimer() {
 
     //Decrement the timer
     p.innerHTML = --timerText;
+}
+
+//Called to swap between showing the information and not
+function toggleInformation() {
+
+    //Swap to the new state
+    showInformation = !showInformation;
+    
+    //Get the div that will be toggled
+    var info = document.querySelector(".information");
+    
+    if (showInformation) {
+        info.style.visibility = "visible";
+        info.style.opacity = "0.75";
+    } else {
+        setTimeout(function() { info.style.visibility = "hidden"; }, 250);
+        info.style.opacity = "0";
+    }
 }
 
 

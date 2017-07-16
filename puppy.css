@@ -12,11 +12,80 @@ html, body {
 }
 
 ul {
-    list-style: none;
+	list-style: none;
+	padding: 0px;
+}
+
+h1, h4 {
+	margin: 0px;
 }
 
 .cutItOut {
 	pointer-events: none;
+}
+
+.infoMouseover {
+	margin: 15px;
+	position: fixed;
+	z-index: 30;
+	color: #8AB7D1;
+	transition: color 0.2s;
+}
+
+.infoMouseover:hover {
+	color: white;
+}
+
+.information {
+	z-index: 20;
+	background-color: black;
+	color: #BBB;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	opacity: 0;
+	overflow-y: scroll;
+	visibility: hidden;
+	transition: opacity 0.25s;
+}
+
+.flexContainer {
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 100%;
+	display: flex;
+}
+
+.flexItem {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.aboutContent {
+	width: 400px;
+	padding: 20px;
+}
+
+.aboutContent h1 {
+	border-bottom: solid;
+	margin-bottom: 50px;
+}
+
+.aboutContent p {
+	margin: 0px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	font-weight: 300;
+}
+
+.aboutContent a {
+	color: #BBB !important;
+}
+
+.aboutContent a:hover, .aboutContent a:focus, .aboutContent a:active {
+	color: black !important;
+	text-decoration: none;
 }
 
 .container {
