@@ -24,6 +24,67 @@ h1, h4 {
 	pointer-events: none;
 }
 
+.settings {
+	left: 100vw;
+	margin-left: -38px;
+	position: fixed;
+	z-index: 30;
+	display: flex;
+	transition: margin 0.5s;
+	max-height: 57px;
+	min-width: 100vw;
+}
+
+.settingsInput {
+	margin-left: 15px;
+	box-shadow: 5px 5px 10px #4F93BA; /*LOOK AT THAT ZESTY DROP SHADOW*/
+}
+
+.settingsInput p {
+	margin: 0px;
+	color: #8AB7D1;
+	font-size: 30px;
+	padding-top: 10px;
+}
+
+.settingsMouseover {
+	margin-top: 15px;
+	color: #8AB7D1;
+	transition: color 0.2s;
+}
+
+.settingsMouseover:hover {
+	color: white;
+}
+
+.settingsInput form {
+	line-height: 0.79em;
+	float: left;
+}
+
+.settingsInput input {
+	width: 50px;
+	height: 48px;
+	font-size: 30px;
+	text-align: center;
+	border: none;
+}
+
+/*HALLELUJAH*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0; /* Removes leftover margin */
+}
+
+.settingsInput #break {
+	background-color: #8AB7D1;
+}
+
+.settingsInput #session {
+	background-color: #4989AD;
+}
+
 .infoMouseover {
 	margin: 15px;
 	position: fixed;
@@ -40,7 +101,7 @@ h1, h4 {
 	z-index: 20;
 	background-color: black;
 	color: #BBB;
-	width: 100vw;
+	width: 33vw;
 	height: 100vh;
 	position: fixed;
 	opacity: 0;

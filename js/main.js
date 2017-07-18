@@ -57,6 +57,9 @@ var sessionTime;
 //How long the work portion is
 var workLength;
 
+//How long the break is
+var breakLength;
+
 //The text being shown to the user while on break
 var timerText;
 
@@ -65,6 +68,9 @@ var interval;
 
 //Informatio state
 var showInformation;
+
+//Settings state
+var showSettings;
 
 
 //Fired when the window has loaded.
@@ -88,11 +94,17 @@ function init() {
     //List has not been completed
     listCompleted = false;
 
-    //25 minutes
-    workLength = 1200000;
+    //Get session length from the form
+    workLength = document.querySelector("#session").value * 60000;
+
+    //Get break length from the form
+    breakLength = document.querySelector("#break").value;
 
     //Don't show information by default
     showInformation = false;
+
+    //Don't show settings by default
+    showSettings = false;
 
     //Start the page off with a chunk
     addChunk(true);
@@ -142,6 +154,9 @@ function init() {
 
     //Add a click listener to the information icon
     document.querySelector(".infoMouseover").addEventListener("click", toggleInformation);
+
+    //Add a click listener to the settings icon
+    document.querySelector(".settingsMouseover").addEventListener("click", toggleSettings);
 }
 
 //Moves the focus upward one chunk
@@ -506,7 +521,7 @@ function startBreak() {
 }
 
 function createTimer() {
-    timerText = 5;
+    timerText = breakLength; //TODO: Only let positive integers work
 
     var p = document.querySelector(".item p");
     p.setAttribute("class", "cutItOut");
@@ -551,6 +566,32 @@ function toggleInformation() {
         setTimeout(function() { info.style.visibility = "hidden"; }, 250);
         info.style.opacity = "0";
     }
+}
+
+//Called to swap between showing the settings and not
+function toggleSettings() {
+
+    //Swap to the new state
+    showSettings = !showSettings;
+    
+    //Get the div that will be toggled
+    var settings = document.querySelector(".settings");
+    
+    if (showSettings) {
+        settings.style.marginLeft = "-138px";
+    } else {
+        settings.style.marginLeft = "-38px";
+        resetTimerValues();
+    }
+}
+
+//Called when there is new 
+function resetTimerValues() {
+    //Get session length from the form
+    workLength = document.querySelector("#session").value * 60000;
+
+    //Get break length from the form
+    breakLength = document.querySelector("#break").value;
 }
 
 
