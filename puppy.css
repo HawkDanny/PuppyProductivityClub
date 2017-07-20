@@ -8,7 +8,6 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	overflow-x: hidden;
-
 }
 
 ul {
@@ -33,6 +32,7 @@ h1, h4 {
 	transition: margin 0.5s;
 	max-height: 57px;
 	min-width: 100vw;
+	cursor: default;
 }
 
 .settingsInput {
@@ -71,6 +71,10 @@ h1, h4 {
 }
 
 /*HALLELUJAH*/
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none;
@@ -91,6 +95,7 @@ input[type=number]::-webkit-outer-spin-button {
 	z-index: 30;
 	color: #8AB7D1;
 	transition: color 0.2s;
+	cursor: default;
 }
 
 .infoMouseover:hover {
@@ -223,11 +228,20 @@ i {
 
 
 
+.todoHolder {
+    margin-top: 100px;
+    margin: auto;
+	z-index: 2;
+}
+
+.tutorial {
+	margin-top: -25px;
+}
+
 .todo {
     margin-top: 100px;
     margin: auto;
     max-width: 380px;
-	z-index: 2;
 }
 
 .cursor_drag {

@@ -199,7 +199,7 @@ function updateChunks() {
     chunks = [];
 
     //Iterate through the current html, and add the new chunks to the array
-    for (var i = 0; i < newChunks.length - 1; i++) {
+    for (var i = 0; i < newChunks.length; i++) {
         chunks.push(newChunks[i]);
     }
 }
@@ -240,7 +240,7 @@ function constructTodoFromChunks() {
     //Create the tutorial text <p>
     var tut = document.createElement("p");
     tut.setAttribute("class", "tutorial");
-    todo.appendChild(tut);
+    document.querySelector(".todoHolder").appendChild(tut);
 }
 
 //TODO: update description
