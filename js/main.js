@@ -212,12 +212,15 @@ function updateTutorial() {
     //Set the contents of tutorial if the user is still learning
     if (tutorialCounter === 0) {
         tut.innerHTML = "Press tab to add a new item";
+        tut.style.transition = "opacity 0.5s";
         tut.style.opacity = 1;
     } else if (tutorialCounter === 1) {
         tut.innerHTML = "Press shift + delete to remove an item";
+        tut.style.transition = "opacity 0.5s";
         tut.style.opacity = 1;
     } else if (tutorialCounter === 2) {
         tut.innerHTML = "Press shift + enter to start working";
+        tut.style.transition = "opacity 0.5s";
         tut.style.opacity = 1;
     } else {
         tut.innerHTML = "";
@@ -241,6 +244,10 @@ function constructTodoFromChunks() {
     var tut = document.createElement("p");
     tut.setAttribute("class", "tutorial");
     document.querySelector(".todoHolder").appendChild(tut);
+
+    var docTut = document.querySelector(".tutorial");
+    docTut.style.opacity = "0.0";
+    docTut.style.transition = "opacity 0.0s";
 }
 
 //TODO: update description
@@ -289,7 +296,6 @@ function removeChunk() {
 //there is no focused value, and document.activeElement
 //will return undefined
 function addChunk(FirstTimeOverride) {
-
     //Update chunks to account for changes in order
     //TODO: There is a more elegant way to handle this
     updateChunks();
@@ -349,7 +355,7 @@ function freshChunk() {
 
     //span
     var icon = document.createElement("i");
-    icon.setAttribute("class", "fa fa-bars cursor_drag handle");
+    icon.setAttribute("class", "fa fa-paw cursor_drag handle");
     div.appendChild(icon);
 
     //textarea

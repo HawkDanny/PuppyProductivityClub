@@ -175,7 +175,7 @@ input[type=number]::-webkit-outer-spin-button {
 	padding-left: 47px;
 	font-size: 15px;
 	color: #8AB7D1;
-	transition: opacity 1s;
+	transition: opacity 0.5s;
 	opacity: 0;
 }
 
